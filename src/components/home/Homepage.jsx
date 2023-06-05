@@ -1,10 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectUser } from '../../redux/slices/authenticationSlice';
+import { selectUser, logoutUser } from '../../redux/slices/authenticationSlice';
 
 const Homepage = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser(user.id));
+  };
 
   return (
     <div className="flex flex-col h-screen items-center justify-center gap-5">
@@ -14,9 +19,9 @@ const Homepage = () => {
           <p className="text-gray-900">
             Welcome,
             {' '}
-            {user.name}
+            {user.username}
           </p>
-          <Link to="/logout" className="text-blue-500">Log Out</Link>
+          <button type="button" onClick={handleLogout} className="text-blue-500">Log Out</button>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center">

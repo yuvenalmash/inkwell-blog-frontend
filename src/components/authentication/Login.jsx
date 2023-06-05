@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, InputAdornment } from '@mui/material';
@@ -6,10 +6,12 @@ import {
   AccountCircle, Lock, Visibility, VisibilityOff,
 } from '@mui/icons-material';
 import {
-  loginUser, selectStatus, selectError, clearError,
+  loginUser,
+  selectStatus, selectToken,
+  selectError, clearError,
 } from '../../redux/slices/authenticationSlice';
 
-const Login = () => {
+const Login = (() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const status = useSelector(selectStatus);
@@ -35,12 +37,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(user));
+    dispatch(loginUser({ user }));
   };
 
-  if (status === 'succeeded') {
-    navigate('/');
-  }
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    if (error) {
+      console.log('error: ', error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (status === 'succeeded' && token) {
+      navigate('/');
+    }
+  }, [status, token, navigate]);
 
   return (
     <div className="flex flex-col h-screen items-center justify-center p-5">
@@ -110,6 +122,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Login;
