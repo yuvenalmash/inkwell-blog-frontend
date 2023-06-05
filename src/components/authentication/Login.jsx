@@ -43,12 +43,6 @@ const Login = (() => {
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    if (error) {
-      console.log('error: ', error);
-    }
-  }, [error]);
-
-  useEffect(() => {
     if (status === 'succeeded' && token) {
       navigate('/');
     }
