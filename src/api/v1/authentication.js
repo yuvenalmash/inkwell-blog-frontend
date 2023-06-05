@@ -1,7 +1,7 @@
 import API_URL from '../../config';
 
 const register = async (user) => {
-  const res = await fetch(`${API_URL}/users`, {
+  const res = await fetch(`${API_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const register = async (user) => {
 };
 
 const login = async (user) => {
-  const res = await fetch(`${API_URL}/users/login`, {
+  const res = await fetch(`${API_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,16 +23,4 @@ const login = async (user) => {
   const data = await res.json();
   return data;
 };
-
-const logout = async () => {
-  const res = await fetch(`${API_URL}/users/logout`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const data = await res.json();
-  return data;
-};
-
-export { register, login, logout };
+export { register, login };
