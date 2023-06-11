@@ -2,8 +2,27 @@ import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { login, register } from '../../api/v1/authentication';
 
+const dummyUser = {
+  id: 1,
+  username: 'John Doe',
+  avatar: '',
+  bio: 'This is my bio. There are many like it, but this one is mine.',
+  email: 'john@email.com',
+  is_admin: false,
+  created_at: '2023-06-05T10:17:57.828Z',
+  updated_at: '2023-06-05T10:17:57.828Z',
+  posts_count: 0,
+  comments_count: 0,
+  likes_count: 0,
+  followers_count: 0,
+  followed_count: 0,
+  jti: null,
+  token: 'ehdojoadhipdphfhihfe8fjower2r32u2r23r',
+};
+
 const initialState = {
-  user: null,
+  // user: null,
+  user: dummyUser,
   status: 'idle',
   error: null,
   token: null,
