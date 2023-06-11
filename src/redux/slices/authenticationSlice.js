@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { login, register } from '../../api/v1/authentication';
+import { login, register } from '../../api/v1/authenticationRequests';
 
 const dummyUser = {
   id: 1,
