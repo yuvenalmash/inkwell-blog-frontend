@@ -12,13 +12,16 @@ const getUserPosts = async (userId) => {
   return data;
 };
 
-const createPost = async (userId, post) => {
+const createPost = async (post) => {
+  const {
+    userId, title, content, slug,
+  } = post;
   const res = await fetch(`${API_URL}/users/${userId}/posts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(post),
+    body: JSON.stringify({ title, content, slug }),
   });
   const data = await res.json();
   return data;
