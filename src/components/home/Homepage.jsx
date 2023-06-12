@@ -1,30 +1,29 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectUser, logoutUser } from '../../redux/slices/authenticationSlice';
+import { Button } from '@mui/material';
+import { selectUser } from '../../redux/slices/authenticationSlice';
 import Navbar from '../navbar/Navbar';
+import Recentposts from '../posts/RecentPosts';
 
 const Homepage = () => {
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
 
   return (
     <>
       <Navbar />
-      <div className="flex flex-col h-screen items-center justify-center gap-5">
+      <div className="flex flex-col h-screen gap-5 bg-cyan-700">
         <h1 className="text-3xl font-bold text-gray-900">Home</h1>
         {user ? (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col">
             <p className="text-gray-900">
               Welcome,
               {' '}
               {user.username}
             </p>
-            <button type="button" onClick={handleLogout} className="text-blue-500">Log Out</button>
+            {/* add post button */}
+            <Button component={Link} to="/posts/new" variant="contained" color="primary">Add Post</Button>
+            <Recentposts />
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center">
