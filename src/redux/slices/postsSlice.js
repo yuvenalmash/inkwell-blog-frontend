@@ -9,15 +9,15 @@ const initialState = {
 };
 
 export const fetchPosts = createAsyncThunk(
-  'posts/fetchPosts',
+  'postsSlice/fetchPosts',
   async () => {
     const response = await getPosts();
-    return response.data;
+    return response;
   },
 );
 
 export const addNewPost = createAsyncThunk(
-  'posts/addNewPost',
+  'postsSlice/addNewPost',
   async (post) => {
     const response = await createPost(post);
     return response.data;
@@ -25,7 +25,7 @@ export const addNewPost = createAsyncThunk(
 );
 
 export const removePost = createAsyncThunk(
-  'posts/removePost',
+  'postsSlice/removePost',
   async (postId) => {
     const response = await deletePost(postId);
     return response.data;
@@ -33,7 +33,7 @@ export const removePost = createAsyncThunk(
 );
 
 const postsSlice = createSlice({
-  name: 'posts',
+  name: 'postsSlice',
   initialState,
   reducers: {
     clearError: (state) => {
@@ -55,11 +55,12 @@ const postsSlice = createSlice({
       })
 
       .addCase(addNewPost.pending, (state) => {
+        console.log('pending');
         state.status = 'loading';
       })
       .addCase(addNewPost.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.posts.push(action.payload);
+        state.data.push(action.payload);
       })
       .addCase(addNewPost.rejected, (state, action) => {
         state.status = 'failed';
@@ -83,3 +84,12 @@ const postsSlice = createSlice({
 export const { clearError } = postsSlice.actions;
 
 export default postsSlice.reducer;
+
+export const selectAllPosts = (state) => state.postsSlice.posts;
+export const selectUserPosts = (state) => (
+  state.posts.filter((post) => post.user_id === state.authentication.user.id)
+);
+export const selectPostById = (state, postId) => (
+  state.posts.find((post) => post.id === postId)
+);
+export const selectPostsStatus = (state) => state.status;
