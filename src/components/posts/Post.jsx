@@ -8,17 +8,18 @@ import {
 const Post = ({ post }) => {
   const { id, title, content } = post;
   return (
-    <Card className="w-1/2">
+    <Card className="flex flex-col w-1/4">
       <CardContent>
         <Typography variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2">
+
+        <Typography variant="body2" className="truncate">
           {content}
         </Typography>
       </CardContent>
-      <CardActions>
 
+      <CardActions>
         <Button component={Link} to={`/posts/${id}`} size="small">Read More</Button>
       </CardActions>
     </Card>

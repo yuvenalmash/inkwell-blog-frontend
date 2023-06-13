@@ -13,14 +13,14 @@ const RecentPosts = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
-      <h1 className="text-3xl font-bold text-gray-900">Recent Posts</h1>
+    <div className="flex flex-col align-center">
+      <h1 className="text-3xl text-center font-bold">Recent Posts</h1>
       {status === 'loading' ? (
-        <h1 className="text-2xl font-bold text-gray-900">Loading...</h1>
+        <h1 className="text-2xl font-bold">Loading...</h1>
       ) : (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-center w-fit gap-5">
           {posts.length === 0 ? (
-            <h1 className="text-2xl font-bold text-gray-900">No posts yet</h1>
+            <h1 className="text-2xl font-bold">No posts yet</h1>
           ) : (
             posts.map((post) => (
               <Post key={post.id} post={post} />
