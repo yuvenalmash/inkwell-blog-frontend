@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   TextField, Button, Typography, Box,
 } from '@mui/material';
+import Navbar from '../navbar/Navbar';
 import { addNewPost, selectPostsStatus } from '../../redux/slices/postsSlice';
 import { selectUser } from '../../redux/slices/authenticationSlice';
 
@@ -41,28 +42,31 @@ const NewPost = () => {
   }, [status, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
-      <Typography variant="h4" component="div">
-        New Post
-      </Typography>
-      <Box className="flex flex-col gap-5 w-1/2">
-        <TextField
-          label="Title"
-          variant="outlined"
-          value={title}
-          onChange={handleTitleChange}
-        />
-        <TextField
-          label="Content"
-          variant="outlined"
-          multiline
-          rows={10}
-          value={content}
-          onChange={handleContentChange}
-        />
-        <Button variant="contained" color="primary" onClick={handleSavePost}>Save Post</Button>
-      </Box>
-    </div>
+    <>
+      <Navbar />
+      <div className="flex flex-col items-center justify-center gap-5 p-5">
+        <Typography variant="h4" component="div">
+          New Post
+        </Typography>
+        <Box className="flex flex-col gap-5 w-1/2">
+          <TextField
+            label="Title"
+            variant="outlined"
+            value={title}
+            onChange={handleTitleChange}
+          />
+          <TextField
+            label="Content"
+            variant="outlined"
+            multiline
+            rows={10}
+            value={content}
+            onChange={handleContentChange}
+          />
+          <Button variant="contained" color="primary" onClick={handleSavePost}>Save Post</Button>
+        </Box>
+      </div>
+    </>
   );
 };
 
