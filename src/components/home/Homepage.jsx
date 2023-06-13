@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
 import { selectUser } from '../../redux/slices/authenticationSlice';
 import Navbar from '../navbar/Navbar';
 import Recentposts from '../posts/RecentPosts';
@@ -12,8 +11,7 @@ const Homepage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col h-screen gap-5 bg-cyan-700">
-        <h1 className="text-3xl font-bold text-gray-900">Home</h1>
+      <div className="flex flex-col items-center justify-center bg-yellow-300 min-h-screen mx-auto gap-5">
         {user ? (
           <div className="flex flex-col">
             <p className="text-gray-900">
@@ -21,8 +19,6 @@ const Homepage = () => {
               {' '}
               {user.username}
             </p>
-            {/* add post button */}
-            <Button component={Link} to="/posts/new" variant="contained" color="primary">Add Post</Button>
             <Recentposts />
           </div>
         ) : (
