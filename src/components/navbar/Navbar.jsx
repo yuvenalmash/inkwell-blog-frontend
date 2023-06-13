@@ -25,6 +25,36 @@ const Navbar = () => {
     setIsDrawerOpen((prevIsDrawerOpen) => !prevIsDrawerOpen);
   };
 
+  let buttons;
+
+  if (user) {
+    buttons = {
+      home: {
+        text: 'Home',
+        to: '/',
+      },
+      addPost: {
+        text: 'Add Post',
+        to: '/posts/new',
+      },
+      logout: {
+        text: 'Log Out',
+        onClick: handleLogout,
+      },
+    };
+  } else {
+    buttons = {
+      login: {
+        text: 'Log In',
+        to: '/login',
+      },
+      signup: {
+        text: 'Sign Up',
+        to: '/signup',
+      },
+    };
+  }
+
   return (
     <AppBar position="static">
       <Toolbar className="flex justify-between bg-gray-900 align-baseline">
@@ -40,52 +70,21 @@ const Navbar = () => {
 
         {!isSmallScreen && (
           <div className="flex gap-5">
-            {user ? (
-              <>
-                <Box className="hover:bg-gray-700">
-                  <Button component={Link} to="/" color="inherit">Home</Button>
-                </Box>
-                <Box className="hover:bg-gray-700">
-                  <Button color="inherit" onClick={handleLogout}>Log Out</Button>
-                </Box>
-              </>
-            ) : (
-              <>
-                <Box className="hover:bg-gray-700">
-                  <Button component={Link} to="/login" color="inherit">Log In</Button>
-                </Box>
-                <Box className="hover:bg-gray-700">
-                  <Button component={Link} to="/signup" color="inherit">Log out</Button>
-                </Box>
-              </>
-            )}
+            {Object.entries(buttons).map(([key, { text, to, onClick }]) => (
+              <Box key={key} className="hover:bg-gray-700">
+                <Button component={Link} to={to} color="inherit" onClick={onClick}>{text}</Button>
+              </Box>
+            ))}
           </div>
         )}
 
         <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer}>
           <List>
-            {user ? (
-              <>
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemText primary={`Welcome, ${user.username}`} />
-                </ListItem>
-                <ListItem button component={Link} to="/" onClick={toggleDrawer}>
-                  <ListItemText primary="Home" />
-                </ListItem>
-                <ListItem button onClick={handleLogout}>
-                  <ListItemText primary="Log Out" />
-                </ListItem>
-              </>
-            ) : (
-              <>
-                <ListItem button components={Link} to="/login" onClick={toggleDrawer}>
-                  <ListItemText primary="Log In" />
-                </ListItem>
-                <ListItem button components={Link} to="/signup" onClick={toggleDrawer}>
-                  <ListItemText primary="Sign Up" />
-                </ListItem>
-              </>
-            )}
+            {Object.entries(buttons).map(([key, { text, to, onClick }]) => (
+              <ListItem key={key} button component={Link} to={to} onClick={onClick}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
           </List>
         </Drawer>
       </Toolbar>
