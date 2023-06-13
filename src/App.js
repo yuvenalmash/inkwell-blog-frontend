@@ -8,7 +8,7 @@ import Login from './components/authentication/Login';
 import NewPost from './components/posts/NewPost';
 
 const App = () => (
-  <div className="flex flex-col mx-auto min-h-screen bg-slate-200 shadow-md overflow-hidden">
+  <div className="flex flex-col items-center justify-center min-h-screen w-screen shadow-md">
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
